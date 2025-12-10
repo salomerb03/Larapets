@@ -1,4 +1,5 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
+
 
 # Instala las extensiones necesarias, incluyendo gd
 RUN apt-get update && apt-get install -y \
@@ -9,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    && docker-php-ext-install gd pdo pdo_mysql zip
+
 
 # Instala composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
