@@ -1,9 +1,6 @@
-# Use PHP 8.2 FPM como base
 FROM php:8.2-fpm
 
-# Instalar dependencias del sistema y extensiones de PHP
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev zip unzip git curl
-
+RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -11,8 +8,9 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev
     unzip \
     git \
     curl \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql zip
+&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+&& docker-php-ext-install gd pdo pdo_mysql zip
+
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
